@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Menú de Comidas</title>
+</head>
+<body>
+  <h1>Menú de Comidas</h1>
+
+  <h2>Desayuno</h2>
+  <table border="1" cellpadding="6">
+    <thead>
+      <tr><th>Plato</th><th>Precio</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Tamales</td><td>S/ 10.90</td></tr>
+      <tr><td>Pan con chicharron</td><td>S/ 9.90</td></tr>
+      <tr><td>Queso frito</td><td>S/ 7.90</td></tr>
+      <tr><td>Pan con Pollo</td><td>S/ 4.90</td></tr>
+      <tr><td>Pan con pejerrey</td><td>S/ 5.90</td></tr>
+      <tr><td>Panqueques</td><td>S/ 3.90</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Almuerzo</h2>
+  <table border="1" cellpadding="6">
+    <thead>
+      <tr><th>Plato</th><th>Precio</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Arroz con pato</td><td>S/ 19.90</td></tr>
+      <tr><td>Seco de pato</td><td>S/ 21.90</td></tr>
+      <tr><td>Sopa seca</td><td>S/ 24.90</td></tr>
+      <tr><td>Carapulcra</td><td>S/ 17.90</td></tr>
+      <tr><td>Trucha frita</td><td>S/ 29.90</td></tr>
+      <tr><td>Lomo saltado</td><td>S/ 24.90</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Cena</h2>
+  <table border="1" cellpadding="6">
+    <thead>
+      <tr><th>Plato</th><th>Precio</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Anticucho</td><td>S/ 19.90</td></tr>
+      <tr><td>Chicharron</td><td>S/ 24.90</td></tr>
+      <tr><td>Pollo a la brasa</td><td>S/ 19.90</td></tr>
+      <tr><td>Pollo broaster</td><td>S/ 16.90</td></tr>
+      <tr><td>Chaufa</td><td>S/ 15.90</td></tr>
+      <tr><td>Pollo a la parrilla</td><td>S/ 21.90</td></tr>
+    </tbody>
+  </table>
+
+  <p>
+    <a href="inicio.html">Volver al Inicio</a> |
+    <a href="pedido.html">Hacer el Pedido</a>
+  </p>
+</body>
+</html>
