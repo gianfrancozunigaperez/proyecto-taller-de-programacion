@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Registrar usuario</title>
+</head>
+<body>
+  <h1>Registrar usuario</h1>
+
+  <form>
+    <label>Nombre completo:<br><input type="text" name="nombre"></label><br><br>
+    <label>Correo electrónico:<br><input type="email" name="correo"></label><br><br>
+    <label>Contraseña:<br><input type="password" name="pass1"></label><br><br>
+    <label>Confirmar contraseña:<br><input type="password" name="pass2"></label><br><br>
+    <button type="submit">Registrar</button>
+  </form>
+
+  <p><a href="login.html">Volver a Iniciar sesión</a></p>
+  <p><a href="inicio.html">Ir al Inicio</a></p>
+</body>
+</html>
