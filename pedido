@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Formulario de Pedido</title>
+</head>
+<body>
+  <h1>Formulario de Pedido</h1>
+
+  <form>
+    <fieldset>
+      <legend>Datos del cliente</legend>
+      <label>Nombre del cliente:<br><input type="text" name="cliente"></label><br><br>
+      <label>Dirección:<br><input type="text" name="direccion"></label><br><br>
+      <label>Teléfono:<br><input type="tel" name="telefono"></label><br><br>
+    </fieldset>
+
+    <br>
+
+    <fieldset>
+      <legend>Selección de platos</legend>
+
+      <h3>Desayuno</h3>
+      <label><input type="checkbox" name="platos" value="Tamales"> Tamales (S/ 10.90)</label><br>
+      <label><input type="checkbox" name="platos" value="Pan con chicharron"> Pan con chicharron (S/ 9.90)</label><br>
+      <label><input type="checkbox" name="platos" value="Queso frito"> Queso frito (S/ 7.90)</label><br>
+      <label><input type="checkbox" name="platos" value="Pan con Pollo"> Pan con Pollo (S/ 4.90)</label><br>
+      <label><input type="checkbox" name="platos" value="Pan con pejerrey"> Pan con pejerrey (S/ 5.90)</label><br>
+      <label><input type="checkbox" name="platos" value="Panqueques"> Panqueques (S/ 3.90)</label><br><br>
+
+      <h3>Almuerzo</h3>
+      <label><input type="checkbox" name="platos" value="Arroz con pato"> Arroz con pato (S/ 19.90)</label><br>
+      <label><input type="checkbox" name="platos" value="Seco de pato"> Seco de pato (S/ 21.90)</label><br>
+      <label><input type="checkbox" name="platos" value="Sopa seca"> Sopa seca (S/ 24.90)</label><br>
+      <label><input type="checkbox" name="platos" value="Carapulcra"> Carapulcra (S/ 17.90)</label><br>
+      <label><input type="checkbox" name="platos" value="Trucha frita"> Trucha frita (S/ 29.90)</label><br>
+      <label><input type="checkbox" name="platos" value="Lomo saltado"> Lomo saltado (S/ 24.90)</label><br><br>
+
+      <h3>Cena</h3>
+      <label><input type="checkbox" name="platos" value="Anticucho"> Anticucho (S/ 19.90)</label><br>
+      <label><input type="checkbox" name="platos" value="Chicharron"> Chicharron (S/ 24.90)</label><br>
+      <label><input type="checkbox" name="platos" value="Pollo a la brasa"> Pollo a la brasa (S/ 19.90)</label><br>
+      <label><input type="checkbox" name="platos" value="Pollo broaster"> Pollo broaster (S/ 16.90)</label><br>
+      <label><input type="checkbox" name="platos" value="Chaufa"> Chaufa (S/ 15.90)</label><br>
+      <label><input type="checkbox" name="platos" value="Pollo a la parrilla"> Pollo a la parrilla (S/ 21.90)</label><br><br>
+
+      <label>Cantidad total:<br><input type="number" name="cantidad" min="1" value="1"></label><br><br>
+    </fieldset>
+
+    <br>
+    <button type="submit">Enviar Pedido</button>
+  </form>
+
+  <p>
+    <a href="menu.html">Volver al Menú</a> |
+    <a href="inicio.html">Volver al Inicio</a>
+  </p>
+</body>
+</html>
