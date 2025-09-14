@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Pedidos Realizados</title>
+</head>
+<body>
+  <h1>Pedidos Realizados</h1>
+
+  <table border="1" cellpadding="6">
+    <thead>
+      <tr>
+        <th>N.º de pedido</th>
+        <th>Cliente</th>
+        <th>Platos seleccionados</th>
+        <th>Total</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Ejemplos simulados -->
+      <tr>
+        <td>PM-2025-00001</td>
+        <td>Juan Pérez</td>
+        <td>Lomo, Empanada</td>
+        <td>S/ 27.80</td>
+        <td>En Proceso</td>
+      </tr>
+      <tr>
+        <td>PM-2025-00002</td>
+        <td>María López</td>
+        <td>Wafles</td>
+        <td>S/ 12.90</td>
+        <td>Preparando</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    <a href="menu.html">Volver al Menú</a> |
+    <a href="inicio.html">Volver al Inicio</a>
+  </p>
+</body>
+</html>
