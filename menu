@@ -1,60 +1,206 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <title>Menú de Comidas</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Menú — MamaFlor</title>
+  <style>
+    :root{
+      --bg:#0f1320;          /* fondo de página */
+      --panel:#ffffff;        /* tarjetas y tablas */
+      --muted:#6b7280;        /* texto secundario */
+      --brand:#16a34a;        /* verde principal */
+      --brand-2:#22c55e;      /* verde claro */
+      --stroke:rgba(0,0,0,.12);
+      --ring:rgba(34,197,94,.25);
+      --shadow:0 10px 30px rgba(0,0,0,.25);
+      --radius:18px;          /* radios grandes */
+      --radius-sm:12px;       /* radios pequeños */
+      --maxw:1100px;          /* ancho máximo */
+    }
+
+    /* Reset + base */
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial;
+      background: radial-gradient(1200px 800px at 10% 10%, #111936 0%, transparent 60%),
+                  radial-gradient(1000px 800px at 90% 20%, #0c1024 0%, transparent 60%),
+                  var(--bg);
+      color:#0b1020; line-height:1.55;
+    }
+
+    a{color:inherit; text-decoration:none}
+
+    .container{max-width:var(--maxw); margin-inline:auto; padding:24px}
+
+    /* Header */
+    header{position:sticky; top:0; z-index:50; backdrop-filter:saturate(180%) blur(8px);
+      background:linear-gradient(180deg, rgba(255,255,255,.82), rgba(255,255,255,.62)); border-bottom:1px solid var(--stroke)}
+    .topbar{display:flex; align-items:center; gap:18px; justify-content:space-between}
+    .brand{display:flex; align-items:center; gap:12px; font-weight:800}
+    .brand .logo{width:38px; height:38px; border-radius:12px; display:grid; place-items:center; color:#fff;
+      background:linear-gradient(135deg, var(--brand), var(--brand-2)); font-weight:900}
+    nav ul{list-style:none; margin:0; padding:0; display:flex; gap:8px; flex-wrap:wrap}
+    nav a{display:inline-block; padding:10px 14px; border-radius:12px; font-weight:700; border:1px solid transparent}
+    nav a:hover{background:rgba(34,197,94,.12); border-color:var(--ring)}
+
+    /* Hero/kicker */
+    .headline{margin:20px 0 6px; display:flex; align-items:end; justify-content:space-between; gap:12px}
+    .kicker{color:var(--brand); font-weight:900; letter-spacing:.3px; text-transform:uppercase; font-size:.75rem}
+    h1{margin:.2rem 0 0; font-size:clamp(1.6rem, 2.4vw + 1rem, 2.2rem)}
+    .lead{color:var(--muted)}
+
+    /* Filtros / búsqueda opcional */
+    .filters{margin-top:10px; display:flex; gap:10px; flex-wrap:wrap}
+    .input{display:flex; align-items:center; gap:8px; border:1px solid var(--stroke); border-radius:14px; padding:10px 12px; background:#fff}
+    .input input{border:none; outline:none; min-width:220px}
+
+    /* Secciones del menú */
+    section.menu{margin-top:18px; display:grid; gap:18px}
+    .card{background:var(--panel); border-radius:var(--radius); box-shadow:var(--shadow); border:1px solid var(--stroke)}
+    .card-header{padding:18px 22px; border-bottom:1px solid var(--stroke); display:flex; align-items:center; justify-content:space-between}
+    .card-header h2{margin:0; font-size:1.25rem}
+
+    /* Tabla elegante */
+    .table-wrap{overflow:auto}
+    table{width:100%; border-collapse:separate; border-spacing:0}
+    thead th{position:sticky; top:0; background:#fafafa; text-align:left; font-weight:900; font-size:.95rem; border-bottom:1px solid var(--stroke)}
+    th, td{padding:12px 14px}
+    tbody tr:not(:last-child) td{border-bottom:1px dashed var(--stroke)}
+    tbody tr:hover td{background:rgba(34,197,94,.06)}
+    .price{font-weight:800}
+    .add a{display:inline-flex; align-items:center; gap:6px; padding:8px 12px; border-radius:12px; font-weight:800;
+      border:1px solid var(--stroke); background:#fff}
+    .add a:hover{box-shadow:0 6px 18px rgba(34,197,94,.16)}
+
+    /* Footer */
+    footer{margin-top:24px}
+    .footer-card{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:18px}
+    .small{font-size:.92rem; color:var(--muted)}
+
+    /* Responsivo */
+    @media (max-width: 900px){
+      nav ul{gap:6px}
+      nav a{padding:8px 10px}
+    }
+    @media (max-width: 560px){
+      thead th{font-size:.9rem}
+      th, td{padding:10px 12px}
+    }
+  </style>
 </head>
 <body>
-  <h1>Menú de Comidas</h1>
+  <header>
+    <div class="container topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">MF</div>
+        <span>MamaFlor</span>
+      </div>
+      <nav aria-label="Navegación principal">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="pedido.html">Hacer pedido</a></li>
+          <li><a href="pedidos.html">Pedidos</a></li>
+          <li><a href="login.html">Iniciar sesión</a></li>
+          <li><a href="registrar.html">Registrar</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-  <h2>Desayuno</h2>
-  <table border="1" cellpadding="6">
-    <thead>
-      <tr><th>Plato</th><th>Precio</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>Tamales</td><td>S/ 10.90</td></tr>
-      <tr><td>Pan con chicharron</td><td>S/ 9.90</td></tr>
-      <tr><td>Queso frito</td><td>S/ 7.90</td></tr>
-      <tr><td>Pan con Pollo</td><td>S/ 4.90</td></tr>
-      <tr><td>Pan con pejerrey</td><td>S/ 5.90</td></tr>
-      <tr><td>Panqueques</td><td>S/ 3.90</td></tr>
-    </tbody>
-  </table>
+  <main class="container">
+    <div class="headline">
+      <div>
+        <div class="kicker">Menú</div>
+        <h1>Explora nuestras opciones</h1>
+        <p class="lead">Desayunos, almuerzos y cenas listos para añadir a tu pedido.</p>
+      </div>
+      <form class="filters" role="search" onsubmit="event.preventDefault()">
+        <label class="input" for="q" title="Buscar platos">
+          🔍 <input id="q" type="search" placeholder="Buscar plato…" oninput="filterRows(this.value)"/>
+        </label>
+      </form>
+    </div>
 
-  <h2>Almuerzo</h2>
-  <table border="1" cellpadding="6">
-    <thead>
-      <tr><th>Plato</th><th>Precio</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>Arroz con pato</td><td>S/ 19.90</td></tr>
-      <tr><td>Seco de pato</td><td>S/ 21.90</td></tr>
-      <tr><td>Sopa seca</td><td>S/ 24.90</td></tr>
-      <tr><td>Carapulcra</td><td>S/ 17.90</td></tr>
-      <tr><td>Trucha frita</td><td>S/ 29.90</td></tr>
-      <tr><td>Lomo saltado</td><td>S/ 24.90</td></tr>
-    </tbody>
-  </table>
+    <section class="menu" id="menu">
+      <!-- DESAYUNO -->
+      <article class="card">
+        <div class="card-header"><h2>Desayuno</h2></div>
+        <div class="table-wrap">
+          <table aria-label="Tabla de desayuno">
+            <thead>
+              <tr><th>Plato</th><th>Descripción</th><th>Precio</th><th>Añadir</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Tamales</td><td>Masa de maíz rellena</td><td class="price">S/ 10.90</td><td class="add"><a href="pedido.html">Añadir</a></td></tr>
+              <tr><td>Pan con chicharrón</td><td>Cerdo frito y camote</td><td class="price">S/ 10.90</td><td class="add"><a href="pedido.html">Añadir</a></td></tr>
+              <tr><td>Queso frito</td><td>Queso dorado</td><td class="price">S/ 7.90</td><td class="add"><a href="pedido.html">Añadir</a></td></tr>
+              <tr><td>Pan con pollo</td><td>Pollo desmenuzado</td><td class="price">S/ 4.90</td><td class="add"><a href="pedido.html">Añadir</a></td></tr>
+              <tr><td>Pan con pejerrey</td><td>Pescado frito y salsa</td><td class="price">S/ 5.90</td><td class="add"><a href="pedido.html">Añadir</a></td></tr>
+              <tr><td>Panqueques</td><td>Con miel o mermelada</td><td class="price">S/ 3.90</td><td class="add"><a href="pedido.html">Añadir</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
 
-  <h2>Cena</h2>
-  <table border="1" cellpadding="6">
-    <thead>
-      <tr><th>Plato</th><th>Precio</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>Anticucho</td><td>S/ 19.90</td></tr>
-      <tr><td>Chicharron</td><td>S/ 24.90</td></tr>
-      <tr><td>Pollo a la brasa</td><td>S/ 19.90</td></tr>
-      <tr><td>Pollo broaster</td><td>S/ 16.90</td></tr>
-      <tr><td>Chaufa</td><td>S/ 15.90</td></tr>
-      <tr><td>Pollo a la parrilla</td><td>S/ 21.90</td></tr>
-    </tbody>
-  </table>
+      <!-- ALMUERZO -->
+      <article class="card">
+        <div class="card-header"><h2>Almuerzo</h2></div>
+        <div class="table-wrap">
+          <table aria-label="Tabla de almuerzo">
+            <thead>
+              <tr><th>Plato</th><th>Descripción</th><th>Precio</th><th>Añadir</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Arroz con pato</td><td>Arroz verde y pato</td><td class="price">S/ 19.90</td><td class="add"><a href="pedido.html">Añadir</a></td></tr>
+              <tr><td>Seco de pato</td><td>Pato guisado al culantro</td><td class="price">S/ 21.90</td><td class="add"><a href="pedido.html">Añadir</a></td></tr>
+              <tr><td>Sopa seca</td><td>Fideos sazonados</td><td class="price">S/ 24.90</td><td class="add"><a href="pedido.html">Añadir</a></td></tr>
+              <tr><td>Carapulcra</td><td>Papa seca y maní</td><td class="price">S/ 17.90</td><td class="add"><a href="pedido.html">Añadir</a></td></tr>
+              <tr><td>Trucha frita</td><td>Pescado crocante</td><td class="price">S/ 29.90</td><td class="add"><a href="pedido.html">Añadir</a></td></tr>
+              <tr><td>Lomo saltado</td><td>Carne con papas fritas</td><td class="price">S/ 24.90</td><td class="add"><a href="pedido.html">Añadir</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
 
-  <p>
-    <a href="inicio.html">Volver al Inicio</a> |
-    <a href="pedido.html">Hacer el Pedido</a>
-  </p>
+      <!-- CENA -->
+      <article class="card">
+        <div class="card-header"><h2>Cena</h2></div>
+        <div class="table-wrap">
+          <table aria-label="Tabla de cena">
+            <thead>
+              <tr><th>Plato</th><th>Descripción</th><th>Precio</th><th>Añadir</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Anticucho</td><td>Brochetas de res</td><td class="price">S/ 19.90</td><td class="add"><a href="pedido.html">Añadir</a></td></tr>
+              <tr><td>Chicharrón</td><td>Cerdo frito</td><td class="price">S/ 24.90</td><td class="add"><a href="pedido.html">Añadir</a></td></tr>
+              <tr><td>Pollo a la brasa</td><td>Asado al carbón</td><td class="price">S/ 19.90</td><td class="add"><a href="pedido.html">Añadir</a></td></tr>
+              <tr><td>Pollo broaster</td><td>Frito y crujiente</td><td class="price">S/ 16.90</td><td class="add"><a href="pedido.html">Añadir</a></td></tr>
+              <tr><td>Chaufa</td><td>Arroz frito con pollo</td><td class="price">S/ 15.90</td><td class="add"><a href="pedido.html">Añadir</a></td></tr>
+              <tr><td>Pollo a la parrilla</td><td>A la brasa con guarnición</td><td class="price">S/ 21.90</td><td class="add"><a href="pedido.html">Añadir</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <footer>
+      <div class="card footer-card">
+        <p class="small">Contacto: <a href="mailto:contacto@MamaFlor.com">contacto@MamaFlor.com</a></p>
+        <p class="small">© 2025 MamaFlor</p>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    function filterRows(q){
+      q = (q||'').toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,'');
+      document.querySelectorAll('tbody tr').forEach(tr=>{
+        const text = tr.innerText.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,'');
+        tr.style.display = text.includes(q) ? '' : 'none';
+      });
+    }
+  </script>
 </body>
 </html>
