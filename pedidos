@@ -1,44 +1,209 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <title>Pedidos Realizados</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pedidos realizados — MamaFlor</title>
+  <style>
+    :root{
+      --bg:#0f1320;          /* fondo de página */
+      --panel:#ffffff;        /* tarjetas y tablas */
+      --muted:#6b7280;        /* texto secundario */
+      --brand:#16a34a;        /* verde principal */
+      --brand-2:#22c55e;      /* verde claro */
+      --stroke:rgba(0,0,0,.12);
+      --ring:rgba(34,197,94,.25);
+      --shadow:0 10px 30px rgba(0,0,0,.25);
+      --radius:18px;          /* radios grandes */
+      --radius-sm:12px;       /* radios pequeños */
+      --maxw:1100px;          /* ancho máximo */
+    }
+
+    /* Reset + base */
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial;
+      background: radial-gradient(1200px 800px at 10% 10%, #111936 0%, transparent 60%),
+                  radial-gradient(1000px 800px at 90% 20%, #0c1024 0%, transparent 60%),
+                  var(--bg);
+      color:#0b1020; line-height:1.55;
+    }
+
+    a{color:inherit; text-decoration:none}
+    .container{max-width:var(--maxw); margin-inline:auto; padding:24px}
+
+    /* Header */
+    header{position:sticky; top:0; z-index:50; backdrop-filter:saturate(180%) blur(8px);
+      background:linear-gradient(180deg, rgba(255,255,255,.82), rgba(255,255,255,.62)); border-bottom:1px solid var(--stroke)}
+    .topbar{display:flex; align-items:center; gap:18px; justify-content:space-between}
+    .brand{display:flex; align-items:center; gap:12px; font-weight:800}
+    .brand .logo{width:38px; height:38px; border-radius:12px; display:grid; place-items:center; color:#fff;
+      background:linear-gradient(135deg, var(--brand), var(--brand-2)); font-weight:900}
+    nav ul{list-style:none; margin:0; padding:0; display:flex; gap:8px; flex-wrap:wrap}
+    nav a{display:inline-block; padding:10px 14px; border-radius:12px; font-weight:700; border:1px solid transparent}
+    nav a:hover{background:rgba(34,197,94,.12); border-color:var(--ring)}
+
+    /* Headline / filtros */
+    .headline{margin:20px 0 6px; display:flex; align-items:end; justify-content:space-between; gap:12px}
+    .kicker{color:var(--brand); font-weight:900; letter-spacing:.3px; text-transform:uppercase; font-size:.75rem}
+    h1{margin:.2rem 0 0; font-size:clamp(1.6rem, 2.4vw + 1rem, 2.2rem)}
+    .lead{color:var(--muted)}
+
+    .filters{margin-top:10px; display:flex; gap:10px; flex-wrap:wrap}
+    .input, .select{display:flex; align-items:center; gap:8px; border:1px solid var(--stroke); border-radius:14px; padding:10px 12px; background:#fff}
+    .input input{border:none; outline:none; min-width:220px}
+    .select select{border:none; outline:none; background:transparent}
+    .btn{display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:14px; font-weight:800; cursor:pointer; border:1px solid var(--stroke); background:#fff}
+
+    /* Tabla */
+    .card{background:var(--panel); border-radius:var(--radius); box-shadow:var(--shadow); border:1px solid var(--stroke)}
+    .card-header{padding:18px 22px; border-bottom:1px solid var(--stroke); display:flex; align-items:center; justify-content:space-between}
+    .card-header h2{margin:0; font-size:1.25rem}
+    .table-wrap{overflow:auto}
+    table{width:100%; border-collapse:separate; border-spacing:0}
+    thead th{position:sticky; top:0; background:#fafafa; text-align:left; font-weight:900; font-size:.95rem; border-bottom:1px solid var(--stroke)}
+    th, td{padding:12px 14px}
+    tbody tr:not(:last-child) td{border-bottom:1px dashed var(--stroke)}
+    tbody tr:hover td{background:rgba(34,197,94,.06)}
+    .num{font-feature-settings:"tnum" 1, "lnum" 1}
+
+    /* Estado badge */
+    .status{display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border-radius:999px; font-weight:800; border:1px solid var(--stroke); background:#fff}
+    .status[data-state="En Proceso"]{background:rgba(34,197,94,.10)}
+    .status[data-state="Preparando"]{background:rgba(234,179,8,.12)}
+    .status[data-state="Entregado"]{background:rgba(37,99,235,.12)}
+    .status[data-state="Cancelado"]{background:rgba(239,68,68,.12)}
+
+    /* Footer */
+    footer{margin-top:24px}
+    .footer-card{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:18px}
+    .small{font-size:.92rem; color:var(--muted)}
+
+    /* Responsivo */
+    @media (max-width: 900px){
+      nav ul{gap:6px}
+      nav a{padding:8px 10px}
+    }
+  </style>
 </head>
 <body>
-  <h1>Pedidos Realizados</h1>
+  <header>
+    <div class="container topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">MF</div>
+        <span>MamaFlor</span>
+      </div>
+      <nav aria-label="Navegación principal">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="menu.html">Menú</a></li>
+          <li><a href="pedido.html">Hacer pedido</a></li>
+          <li><a href="login.html">Iniciar sesión</a></li>
+          <li><a href="registrar.html">Registrar</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-  <table border="1" cellpadding="6">
-    <thead>
-      <tr>
-        <th>N.º de pedido</th>
-        <th>Cliente</th>
-        <th>Platos seleccionados</th>
-        <th>Total</th>
-        <th>Estado</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Ejemplos simulados -->
-      <tr>
-        <td>PM-2025-00001</td>
-        <td>Juan Pérez</td>
-        <td>Lomo, Empanada</td>
-        <td>S/ 27.80</td>
-        <td>En Proceso</td>
-      </tr>
-      <tr>
-        <td>PM-2025-00002</td>
-        <td>María López</td>
-        <td>Wafles</td>
-        <td>S/ 12.90</td>
-        <td>Preparando</td>
-      </tr>
-    </tbody>
-  </table>
+  <main class="container">
+    <div class="headline">
+      <div>
+        <div class="kicker">Pedidos</div>
+        <h1>Pedidos realizados</h1>
+        <p class="lead">Busca, filtra por estado y ordena por total o número de pedido.</p>
+      </div>
+      <form class="filters" onsubmit="event.preventDefault()">
+        <label class="input" for="q" title="Buscar por cliente o platos">
+          🔍 <input id="q" type="search" placeholder="Buscar…" oninput="applyFilters()"/>
+        </label>
+        <label class="select" for="estado">
+          Estado
+          <select id="estado" onchange="applyFilters()">
+            <option value="">Todos</option>
+            <option>En Proceso</option>
+            <option>Preparando</option>
+            <option>Entregado</option>
+            <option>Cancelado</option>
+          </select>
+        </label>
+        <button class="btn" type="button" onclick="sortBy('num')">Ordenar Nº</button>
+        <button class="btn" type="button" onclick="sortBy('total')">Ordenar Total</button>
+      </form>
+    </div>
 
-  <p>
-    <a href="menu.html">Volver al Menú</a> |
-    <a href="inicio.html">Volver al Inicio</a>
-  </p>
+    <section class="card">
+      <div class="card-header"><h2>Listado</h2></div>
+      <div class="table-wrap">
+        <table id="tabla" aria-label="Pedidos realizados">
+          <thead>
+            <tr>
+              <th>N.º de pedido</th>
+              <th>Cliente</th>
+              <th>Platos seleccionados</th>
+              <th>Total</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Ejemplos simulados -->
+            <tr>
+              <td class="num" data-num="202500001">MF-2025-00001</td>
+              <td>Juan Pérez</td>
+              <td>Sopa seca, Carapulcra</td>
+              <td class="num" data-total="42.80">S/ 42.80</td>
+              <td><span class="status" data-state="En Proceso">En Proceso</span></td>
+            </tr>
+            <tr>
+              <td class="num" data-num="202500002">MF-2025-00002</td>
+              <td>María López</td>
+              <td>Tamales</td>
+              <td class="num" data-total="10.90">S/ 10.90</td>
+              <td><span class="status" data-state="Preparando">Preparando</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer>
+      <div class="card footer-card">
+        <p class="small">Contacto: <a href="mailto:contacto@MamaFlor.com">contacto@MamaFlor.com</a></p>
+        <p class="small">© 2025 MamaFlor</p>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    function normalize(str){
+      return (str||'').toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,'');
+    }
+
+    function applyFilters(){
+      const q = normalize(document.getElementById('q').value);
+      const estado = document.getElementById('estado').value;
+      const rows = document.querySelectorAll('#tabla tbody tr');
+      rows.forEach(tr=>{
+        const hayTexto = normalize(tr.innerText).includes(q);
+        const est = tr.querySelector('.status')?.dataset.state || '';
+        const hayEstado = !estado || est === estado;
+        tr.style.display = (hayTexto && hayEstado) ? '' : 'none';
+      });
+    }
+
+    let sortAsc = {num:true, total:true};
+    function sortBy(key){
+      const tbody = document.querySelector('#tabla tbody');
+      const rows = Array.from(tbody.querySelectorAll('tr'));
+      const dir = sortAsc[key] ? 1 : -1; // alterna asc/desc
+      rows.sort((a,b)=>{
+        const va = parseFloat(a.querySelector(`[data-${key}]`).dataset[key]);
+        const vb = parseFloat(b.querySelector(`[data-${key}]`).dataset[key]);
+        return (va > vb ? 1 : va < vb ? -1 : 0) * dir;
+      });
+      rows.forEach(r=>tbody.appendChild(r));
+      sortAsc[key] = !sortAsc[key];
+    }
+  </script>
 </body>
 </html>
