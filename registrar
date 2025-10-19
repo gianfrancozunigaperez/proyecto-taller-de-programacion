@@ -1,21 +1,239 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <title>Registrar usuario</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Registrar usuario — MamaFlor</title>
+  <style>
+    :root{
+      --bg:#0f1320;
+      --panel:#ffffff;
+      --muted:#6b7280;
+      --brand:#16a34a;
+      --brand-2:#22c55e;
+      --stroke:rgba(0,0,0,.12);
+      --ring:rgba(34,197,94,.35);
+      --shadow:0 10px 30px rgba(0,0,0,.25);
+      --radius:18px; --radius-sm:12px; --maxw:1100px;
+    }
+
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial;
+      background: radial-gradient(1200px 800px at 10% 10%, #111936 0%, transparent 60%),
+                  radial-gradient(1000px 800px at 90% 20%, #0c1024 0%, transparent 60%),
+                  var(--bg);
+      color:#0b1020; line-height:1.5;
+    }
+
+    a{color:inherit; text-decoration:none}
+    .container{max-width:var(--maxw); margin-inline:auto; padding:24px}
+
+    /* Header consistente */
+    header{position:sticky; top:0; backdrop-filter:saturate(180%) blur(8px);
+      background:linear-gradient(180deg, rgba(255,255,255,.82), rgba(255,255,255,.62)); border-bottom:1px solid var(--stroke); z-index:50}
+    .topbar{display:flex; align-items:center; gap:18px; justify-content:space-between}
+    .brand{display:flex; align-items:center; gap:12px; font-weight:800}
+    .brand .logo{width:38px; height:38px; border-radius:12px; display:grid; place-items:center; color:#fff;
+      background:linear-gradient(135deg, var(--brand), var(--brand-2)); font-weight:900}
+    nav ul{list-style:none; margin:0; padding:0; display:flex; gap:8px; flex-wrap:wrap}
+    nav a{display:inline-block; padding:10px 14px; border-radius:12px; font-weight:700; border:1px solid transparent}
+    nav a:hover{background:rgba(34,197,94,.12); border-color:var(--ring)}
+
+    /* Shell centrado */
+    .shell{width:min(720px, 96vw); margin-inline:auto; margin-top:18px}
+    .card{background:var(--panel); border-radius:var(--radius); border:1px solid var(--stroke); box-shadow:var(--shadow)}
+    .card-content{padding:26px}
+
+    h1{margin:.2rem 0 .6rem; font-size:clamp(1.6rem, 2.4vw + 1rem, 2.2rem); text-wrap:balance}
+    p.lead{margin:.2rem 0 1rem; color:var(--muted)}
+
+    form{display:grid; gap:16px; margin-top:4px}
+    .grid{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+    .field{display:grid; gap:8px}
+    label{font-weight:700}
+
+    .control{display:flex; align-items:center; gap:8px; border:1px solid var(--stroke); border-radius:14px; padding:10px 12px; background:#fff}
+    .control:focus-within{outline:2px solid var(--ring); outline-offset:2px}
+    input, select{
+      border:none; outline:none; flex:1; font-size:1rem; background:transparent
+    }
+
+    .muted{color:var(--muted)}
+
+    .actions{display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap; margin-top:2px}
+    .btn{display:inline-flex; align-items:center; gap:8px; padding:11px 16px; border-radius:14px; font-weight:800; cursor:pointer;
+      border:1px solid var(--stroke); background:white; transition:transform .06s ease, box-shadow .15s ease, background .2s ease}
+    .btn:hover{box-shadow:0 8px 20px rgba(34,197,94,.18)}
+    .btn:active{transform:translateY(1px)}
+    .btn.primary{background:linear-gradient(135deg, var(--brand), var(--brand-2)); color:white; border-color:transparent}
+
+    .links{display:flex; gap:12px; flex-wrap:wrap; margin-top:10px}
+    .links a{display:inline-block; padding:8px 10px; border-radius:12px}
+    .links a:hover{background:rgba(255,255,255,.7)}
+
+    .toggle-pass{border:none; background:transparent; cursor:pointer; font-weight:700}
+
+    .meter{height:8px; background:#f1f5f9; border-radius:999px; overflow:hidden}
+    .meter > i{display:block; height:100%; width:0%; background:linear-gradient(90deg,#ef4444,#f59e0b,#22c55e); transition:width .25s ease}
+
+    footer{margin-top:14px; text-align:center}
+    .small{font-size:.92rem; color:#e5e7eb}
+
+    @media (max-width:640px){
+      .grid{grid-template-columns:1fr}
+      .actions{gap:8px}
+      .btn{width:100%; justify-content:center}
+    }
+  </style>
 </head>
 <body>
-  <h1>Registrar usuario</h1>
+  <header>
+    <div class="container topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">MF</div>
+        <span>MamaFlor</span>
+      </div>
+      <nav aria-label="Navegación principal">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="menu.html">Menú</a></li>
+          <li><a href="pedido.html">Hacer pedido</a></li>
+          <li><a href="pedidos.html">Pedidos</a></li>
+          <li><a href="login.html">Iniciar sesión</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-  <form>
-    <label>Nombre completo:<br><input type="text" name="nombre"></label><br><br>
-    <label>Correo electrónico:<br><input type="email" name="correo"></label><br><br>
-    <label>Contraseña:<br><input type="password" name="pass1"></label><br><br>
-    <label>Confirmar contraseña:<br><input type="password" name="pass2"></label><br><br>
-    <button type="submit">Registrar</button>
-  </form>
+  <main class="container shell">
+    <section class="card" aria-labelledby="title">
+      <div class="card-content">
+        <h1 id="title">Registrar usuario</h1>
+        <p class="lead">Crea tu cuenta para realizar pedidos y ver tu historial. Los campos marcados con * son obligatorios.</p>
 
-  <p><a href="login.html">Volver a Iniciar sesión</a></p>
-  <p><a href="inicio.html">Ir al Inicio</a></p>
+        <form id="regForm" action="#" method="post" autocomplete="on" novalidate>
+          <div class="grid">
+            <div class="field">
+              <label for="nombre">Nombre completo *</label>
+              <div class="control">
+                <input id="nombre" name="nombre" type="text" required placeholder="Nombres y apellidos" autocomplete="name" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="usuario">Usuario *</label>
+              <div class="control">
+                <input id="usuario" name="usuario" type="text" required placeholder="Ej. mfigueroa" autocomplete="username" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="correo">Correo electrónico *</label>
+              <div class="control">
+                <input id="correo" name="correo" type="email" required placeholder="tucorreo@dominio.com" autocomplete="email" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="genero">Género</label>
+              <div class="control">
+                <select id="genero" name="genero">
+                  <option value="">Seleccionar…</option>
+                  <option>Femenino</option>
+                  <option>Masculino</option>
+                  <option>Prefiero no decirlo</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="pass1">Contraseña *</label>
+              <div class="control">
+                <input id="pass1" name="pass1" type="password" required placeholder="••••••••" autocomplete="new-password" oninput="meter()" />
+                <button class="toggle-pass" type="button" aria-label="Mostrar u ocultar contraseña" onclick="toggle('pass1')">👁️</button>
+              </div>
+              <div class="meter" aria-hidden="true"><i id="meterbar"></i></div>
+              <p id="metertext" class="muted" style="margin:.2rem 0 0">Fortaleza: —</p>
+            </div>
+
+            <div class="field">
+              <label for="pass2">Confirmar contraseña *</label>
+              <div class="control">
+                <input id="pass2" name="pass2" type="password" required placeholder="Repite la contraseña" autocomplete="new-password" />
+                <button class="toggle-pass" type="button" aria-label="Mostrar u ocultar contraseña" onclick="toggle('pass2')">👁️</button>
+              </div>
+            </div>
+          </div>
+
+          <label class="muted" style="display:flex; align-items:center; gap:8px; margin-top:4px">
+            <input type="checkbox" id="tyc" required /> Acepto los términos y condiciones *
+          </label>
+
+          <div class="actions">
+            <button type="submit" class="btn primary">Crear cuenta</button>
+            <div class="links">
+              <a href="login.html">← Ya tengo cuenta</a>
+              <a href="index.html">Ir al inicio</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      <p class="small">© 2025 MamaFlor</p>
+    </footer>
+  </main>
+
+  <script>
+    function toggle(id){
+      const i = document.getElementById(id);
+      i.type = i.type === 'password' ? 'text' : 'password';
+    }
+
+    // Indicador simple de fortaleza
+    function meter(){
+      const v = document.getElementById('pass1').value || '';
+      let score = 0;
+      if(v.length >= 8) score++;
+      if(/[A-Z]/.test(v)) score++;
+      if(/[a-z]/.test(v)) score++;
+      if(/\d/.test(v)) score++;
+      if(/[^\w\s]/.test(v)) score++;
+      const pct = (score/5)*100;
+      document.getElementById('meterbar').style.width = pct + '%';
+      const t = ['Muy débil','Débil','Aceptable','Fuerte','Muy fuerte'];
+      document.getElementById('metertext').textContent = 'Fortaleza: ' + (score? t[score-1] : '—');
+    }
+
+    // Validación del formulario
+    document.getElementById('regForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const req = ['nombre','usuario','correo','pass1','pass2'];
+      for(const id of req){
+        const el = document.getElementById(id);
+        if(!el.value.trim()){
+          alert('Por favor completa: ' + id);
+          el.focus();
+          return;
+        }
+      }
+      if(!document.getElementById('tyc').checked){
+        alert('Debes aceptar los términos y condiciones.');
+        return;
+      }
+      const p1 = document.getElementById('pass1').value;
+      const p2 = document.getElementById('pass2').value;
+      if(p1 !== p2){
+        alert('Las contraseñas no coinciden.');
+        document.getElementById('pass2').focus();
+        return;
+      }
+      alert('¡Cuenta creada!\\nUsuario: ' + document.getElementById('usuario').value + '\\nCorreo: ' + document.getElementById('correo').value);
+      // Aquí puedes enviar con fetch() a tu backend.
+    });
+  </script>
 </body>
 </html>
