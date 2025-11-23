@@ -4,100 +4,234 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Menú — MamaFlor</title>
+
   <style>
     :root{
-      --bg:#0f1320;          /* fondo de página */
-      --panel:#ffffff;        /* tarjetas y tablas */
-      --muted:#6b7280;        /* texto secundario */
-      --brand:#16a34a;        /* verde principal */
-      --brand-2:#22c55e;      /* verde claro */
+      --bg:#0f1320;
+      --panel:#ffffff;
+      --muted:#6b7280;
+      --brand:#16a34a;
+      --brand-2:#22c55e;
       --stroke:rgba(0,0,0,.12);
-      --ring:rgba(34,197,94,.25);
+      --ring:rgba(34,197,94,.28);
       --shadow:0 10px 30px rgba(0,0,0,.25);
-      --radius:18px;          /* radios grandes */
-      --radius-sm:12px;       /* radios pequeños */
-      --maxw:1100px;          /* ancho máximo */
+      --radius:18px;
     }
 
-    /* Reset + base */
     *,*::before,*::after{box-sizing:border-box}
     html,body{height:100%}
+
+    /* ------------------------- FONDO ANIMADO ------------------------- */
     body{
-      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial;
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI;
       background: radial-gradient(1200px 800px at 10% 10%, #111936 0%, transparent 60%),
                   radial-gradient(1000px 800px at 90% 20%, #0c1024 0%, transparent 60%),
                   var(--bg);
-      color:#0b1020; line-height:1.55;
+      color:#0b1020;
+      line-height:1.55;
+      animation: subtleMove 22s ease-in-out infinite;
+      transition:background-position .05s ease-out;
     }
 
-    a{color:inherit; text-decoration:none}
+    body.parallax-moving{
+      background-position: calc(var(--x)/70) calc(var(--y)/70);
+    }
 
-    .container{max-width:var(--maxw); margin-inline:auto; padding:24px}
+    @keyframes subtleMove{
+      0%{background-position:0 0}
+      50%{background-position:18px 25px}
+      100%{background-position:0 0}
+    }
 
-    /* Header */
-    header{position:sticky; top:0; z-index:50; backdrop-filter:saturate(180%) blur(8px);
-      background:linear-gradient(180deg, rgba(255,255,255,.82), rgba(255,255,255,.62)); border-bottom:1px solid var(--stroke)}
-    .topbar{display:flex; align-items:center; gap:18px; justify-content:space-between}
-    .brand{display:flex; align-items:center; gap:12px; font-weight:800}
-    .brand .logo{width:38px; height:38px; border-radius:12px; display:grid; place-items:center; color:#fff;
-      background:linear-gradient(135deg, var(--brand), var(--brand-2)); font-weight:900}
-    nav ul{list-style:none; margin:0; padding:0; display:flex; gap:8px; flex-wrap:wrap}
-    nav a{display:inline-block; padding:10px 14px; border-radius:12px; font-weight:700; border:1px solid transparent}
-    nav a:hover{background:rgba(34,197,94,.12); border-color:var(--ring)}
+    a{text-decoration:none; color:inherit}
 
-    /* Hero/kicker */
-    .headline{margin:20px 0 6px; display:flex; align-items:end; justify-content:space-between; gap:12px}
-    .kicker{color:var(--brand); font-weight:900; letter-spacing:.3px; text-transform:uppercase; font-size:.75rem}
-    h1{margin:.2rem 0 0; font-size:clamp(1.6rem, 2.4vw + 1rem, 2.2rem)}
+    /* ------------------------- CONTENEDOR ---------------------------- */
+    .container{
+      max-width:1100px;
+      margin:auto;
+      padding:24px;
+      animation: fadeUp .8s ease;
+    }
+
+    @keyframes fadeUp{
+      from{opacity:0; transform:translateY(40px)}
+      to{opacity:1; transform:translateY(0)}
+    }
+
+    /* ------------------------- HEADER ------------------------------- */
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter:saturate(180%) blur(8px);
+      background:linear-gradient(180deg,#ffffffc8,#ffffffa8);
+      border-bottom:1px solid var(--stroke);
+      animation: smoothFade 1s ease;
+    }
+
+    @keyframes smoothFade{
+      from{opacity:0} to{opacity:1}
+    }
+
+    .topbar{
+      display:flex; justify-content:space-between; align-items:center;
+    }
+
+    .brand{
+      display:flex; align-items:center; gap:12px; font-weight:800;
+      animation: fadeUp 1s ease;
+    }
+
+    .logo{
+      width:38px; height:38px; border-radius:12px;
+      background:linear-gradient(135deg,var(--brand),var(--brand-2));
+      color:white; font-weight:900; display:grid; place-items:center;
+      box-shadow:0 4px 15px rgba(34,197,94,.4);
+    }
+
+    nav ul{
+      list-style:none; display:flex; gap:8px; padding:0; margin:0;
+    }
+
+    nav a{
+      padding:10px 14px; font-weight:700;
+      border-radius:12px; transition:.25s ease;
+      border:1px solid transparent;
+    }
+    nav a:hover{
+      background:rgba(34,197,94,.12);
+      border-color:var(--ring);
+      transform:translateY(-3px);
+    }
+
+    /* ---------------------- CABECERA DEL MENÚ ------------------------- */
+    .headline{
+      margin-top:20px;
+      display:flex; justify-content:space-between; gap:12px; align-items:flex-end;
+      animation: fadeUp 1s ease;
+    }
+
+    .kicker{
+      color:var(--brand); font-weight:900; text-transform:uppercase;
+    }
+
+    h1{margin:6px 0 0; font-size:clamp(1.6rem, 2.4vw + 1rem, 2.2rem)}
+
     .lead{color:var(--muted)}
 
-    /* Filtros / búsqueda opcional */
-    .filters{margin-top:10px; display:flex; gap:10px; flex-wrap:wrap}
-    .input{display:flex; align-items:center; gap:8px; border:1px solid var(--stroke); border-radius:14px; padding:10px 12px; background:#fff}
-    .input input{border:none; outline:none; min-width:220px}
+    /* ------------------------- BUSCADOR ------------------------------ */
+    .filters{
+      display:flex; gap:10px;
+    }
 
-    /* Secciones del menú */
-    section.menu{margin-top:18px; display:grid; gap:18px}
-    .card{background:var(--panel); border-radius:var(--radius); box-shadow:var(--shadow); border:1px solid var(--stroke)}
-    .card-header{padding:18px 22px; border-bottom:1px solid var(--stroke); display:flex; align-items:center; justify-content:space-between}
-    .card-header h2{margin:0; font-size:1.25rem}
+    .input{
+      display:flex; align-items:center; gap:8px;
+      background:white; padding:10px 12px;
+      border-radius:14px;
+      border:1px solid var(--stroke);
+      transition:all .3s ease;
+    }
 
-    /* Tabla elegante */
-    .table-wrap{overflow:auto}
-    table{width:100%; border-collapse:separate; border-spacing:0}
-    thead th{position:sticky; top:0; background:#fafafa; text-align:left; font-weight:900; font-size:.95rem; border-bottom:1px solid var(--stroke)}
-    th, td{padding:12px 14px}
-    tbody tr:not(:last-child) td{border-bottom:1px dashed var(--stroke)}
-    tbody tr:hover td{background:rgba(34,197,94,.06)}
+    .input:hover{
+      transform:scale(1.03);
+      box-shadow:0 0 18px rgba(34,197,94,.28);
+    }
+
+    .input input{
+      border:none; outline:none; font-size:1rem; min-width:220px;
+    }
+
+    /* -------------------------- TARJETAS ----------------------------- */
+    section.menu{
+      margin-top:22px; display:grid; gap:22px;
+      animation: fadeUp 1.2s ease;
+    }
+
+    .card{
+      background:white; border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      border:1px solid var(--stroke);
+      animation: floatCard 4s ease-in-out infinite;
+    }
+
+    @keyframes floatCard{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-4px)}
+    }
+
+    .card-header{
+      padding:18px 22px; font-size:1.25rem;
+      border-bottom:1px solid var(--stroke);
+      display:flex; justify-content:space-between;
+    }
+
+    /* ------------------------- TABLA ------------------------------- */
+    table{
+      width:100%; border-collapse:separate;
+      border-spacing:0; font-size:1rem;
+    }
+
+    thead th{
+      position:sticky; top:0;
+      background:#fafafa; font-weight:900;
+      border-bottom:1px solid var(--stroke);
+      padding:12px 14px;
+    }
+
+    tbody tr td{
+      padding:12px 14px;
+      transition:.25s ease;
+    }
+
+    tbody tr:not(:last-child) td{
+      border-bottom:1px dashed var(--stroke);
+    }
+
+    tbody tr:hover td{
+      background:rgba(34,197,94,.06);
+      transform:scale(1.018);
+    }
+
     .price{font-weight:800}
-    .add a{display:inline-flex; align-items:center; gap:6px; padding:8px 12px; border-radius:12px; font-weight:800;
-      border:1px solid var(--stroke); background:#fff}
-    .add a:hover{box-shadow:0 6px 18px rgba(34,197,94,.16)}
 
-    /* Footer */
+    .add a{
+      padding:8px 12px;
+      background:white;
+      border:1px solid var(--stroke);
+      border-radius:12px;
+      display:inline-flex; align-items:center;
+      gap:6px; font-weight:700;
+      transition:.25s ease;
+    }
+
+    /* Glow verde añadir */
+    .add a:hover{
+      transform:translateY(-4px) scale(1.08);
+      box-shadow:
+        0 12px 26px rgba(34,197,94,.28),
+        0 0 22px rgba(34,197,94,.26);
+    }
+
     footer{margin-top:24px}
-    .footer-card{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:18px}
-    .small{font-size:.92rem; color:var(--muted)}
+    .footer-card{
+      display:flex; justify-content:space-between; padding:18px; gap:12px;
+    }
 
-    /* Responsivo */
-    @media (max-width: 900px){
-      nav ul{gap:6px}
-      nav a{padding:8px 10px}
-    }
-    @media (max-width: 560px){
-      thead th{font-size:.9rem}
-      th, td{padding:10px 12px}
-    }
+    .small{color:var(--muted)}
+
+
   </style>
 </head>
+
 <body>
+
   <header>
     <div class="container topbar">
       <div class="brand">
-        <div class="logo" aria-hidden="true">MF</div>
+        <div class="logo">MF</div>
         <span>MamaFlor</span>
       </div>
-      <nav aria-label="Navegación principal">
+
+      <nav>
         <ul>
           <li><a href="index.html">Inicio</a></li>
           <li><a href="pedido.html">Hacer pedido</a></li>
@@ -110,20 +244,25 @@
   </header>
 
   <main class="container">
+
+    <!-- TITULAR -->
     <div class="headline">
       <div>
         <div class="kicker">Menú</div>
         <h1>Explora nuestras opciones</h1>
         <p class="lead">Desayunos, almuerzos y cenas listos para añadir a tu pedido.</p>
       </div>
+
       <form class="filters" role="search" onsubmit="event.preventDefault()">
-        <label class="input" for="q" title="Buscar platos">
-          🔍 <input id="q" type="search" placeholder="Buscar plato…" oninput="filterRows(this.value)"/>
+        <label class="input">
+          🔍 <input id="q" type="search" placeholder="Buscar plato…" oninput="filterRows(this.value)">
         </label>
       </form>
     </div>
 
+    <!-- SECCIONES DEL MENÚ -->
     <section class="menu" id="menu">
+
       <!-- DESAYUNO -->
       <article class="card">
         <div class="card-header"><h2>Desayuno</h2></div>
@@ -165,7 +304,7 @@
       </article>
 
       <!-- CENA -->
-      <article class="card">
+<article class="card">
         <div class="card-header"><h2>Cena</h2></div>
         <div class="table-wrap">
           <table aria-label="Tabla de cena">
@@ -185,20 +324,72 @@
       </article>
     </section>
 
+
     <footer>
       <div class="card footer-card">
-        <p class="small">Contacto: <a href="mailto:contacto@MamaFlor.com">contacto@MamaFlor.com</a></p>
+        <p class="small">Contacto: contacto@MamaFlor.com</p>
         <p class="small">© 2025 MamaFlor</p>
       </div>
     </footer>
+
   </main>
 
+  <!-- ------------------------- JS PROFESIONAL ------------------------- -->
   <script>
+    /* ---------------- FILTRO CON ANIMACIÓN ---------------- */
     function filterRows(q){
       q = (q||'').toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,'');
-      document.querySelectorAll('tbody tr').forEach(tr=>{
+
+      let found = false;
+      document.querySelectorAll("tbody tr").forEach(tr=>{
         const text = tr.innerText.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,'');
-        tr.style.display = text.includes(q) ? '' : 'none';
+        const show = text.includes(q);
+        tr.style.display = show ? "" : "none";
+        if(show) found = true;
+      });
+
+      if(!found){
+        animateShake(document.querySelector(".menu"));
+      }
+    }
+
+    /* Animación de temblor */
+    function animateShake(el){
+      el.style.animation = "shake .4s ease";
+      setTimeout(() => el.style.animation = "", 400);
+    }
+
+    /* Keyframes del shake */
+    const styleShake = document.createElement("style");
+    styleShake.textContent = `
+      @keyframes shake{
+        0%{transform:translateX(0)}
+        25%{transform:translateX(-6px)}
+        50%{transform:translateX(6px)}
+        75%{transform:translateX(-4px)}
+        100%{transform:translateX(0)}
+      }
+    `;
+    document.head.appendChild(styleShake);
+
+
+    /* ---------------- FONDO PARALLAX ---------------- */
+    document.addEventListener("mousemove", e=>{
+      document.body.style.setProperty("--x", e.clientX);
+      document.body.style.setProperty("--y", e.clientY);
+      document.body.classList.add("parallax-moving");
+
+      clearTimeout(window.__bg);
+      window.__bg = setTimeout(()=>{
+        document.body.classList.remove("parallax-moving");
+      },120);
+    });
+
+  </script>
+
+</body>
+</html>
+
       });
     }
   </script>
