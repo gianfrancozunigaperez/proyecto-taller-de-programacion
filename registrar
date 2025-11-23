@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Registrar usuario — MamaFlor</title>
+
   <style>
     :root{
       --bg:#0f1320;
@@ -14,88 +15,198 @@
       --stroke:rgba(0,0,0,.12);
       --ring:rgba(34,197,94,.35);
       --shadow:0 10px 30px rgba(0,0,0,.25);
-      --radius:18px; --radius-sm:12px; --maxw:1100px;
+      --radius:18px; 
+      --radius-sm:12px; 
+      --maxw:1100px;
     }
 
     *,*::before,*::after{box-sizing:border-box}
     html,body{height:100%}
+
+    /* Fondo dinámico */
     body{
-      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial;
+      margin:0;
+      font-family: ui-sans-serif, system-ui;
       background: radial-gradient(1200px 800px at 10% 10%, #111936 0%, transparent 60%),
-                  radial-gradient(1000px 800px at 90% 20%, #0c1024 0%, transparent 60%),
+                  radial-gradient(900px 700px at 90% 20%, #0c1024 0%, transparent 60%),
                   var(--bg);
-      color:#0b1020; line-height:1.5;
+      color:#0b1020;
+      line-height:1.5;
+      animation:bgMove 20s ease-in-out infinite;
     }
 
-    a{color:inherit; text-decoration:none}
-    .container{max-width:var(--maxw); margin-inline:auto; padding:24px}
+    @keyframes bgMove{
+      0%{background-position:0 0}
+      50%{background-position:30px 40px}
+      100%{background-position:0 0}
+    }
 
-    /* Header consistente */
-    header{position:sticky; top:0; backdrop-filter:saturate(180%) blur(8px);
-      background:linear-gradient(180deg, rgba(255,255,255,.82), rgba(255,255,255,.62)); border-bottom:1px solid var(--stroke); z-index:50}
-    .topbar{display:flex; align-items:center; gap:18px; justify-content:space-between}
-    .brand{display:flex; align-items:center; gap:12px; font-weight:800}
-    .brand .logo{width:38px; height:38px; border-radius:12px; display:grid; place-items:center; color:#fff;
-      background:linear-gradient(135deg, var(--brand), var(--brand-2)); font-weight:900}
-    nav ul{list-style:none; margin:0; padding:0; display:flex; gap:8px; flex-wrap:wrap}
-    nav a{display:inline-block; padding:10px 14px; border-radius:12px; font-weight:700; border:1px solid transparent}
-    nav a:hover{background:rgba(34,197,94,.12); border-color:var(--ring)}
+    body.parallax{
+      background-position:
+        calc(var(--x)/60) calc(var(--y)/60),
+        calc(var(--x)/80) calc(var(--y)/80),
+        var(--bg);
+    }
 
-    /* Shell centrado */
-    .shell{width:min(720px, 96vw); margin-inline:auto; margin-top:18px}
-    .card{background:var(--panel); border-radius:var(--radius); border:1px solid var(--stroke); box-shadow:var(--shadow)}
+    .container{
+      max-width:var(--maxw);
+      margin-inline:auto;
+      padding:24px;
+      animation:fadeUp .8s ease;
+    }
+
+    @keyframes fadeUp{
+      from{opacity:0; transform:translateY(40px)}
+      to{opacity:1; transform:translateY(0)}
+    }
+
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:50;
+      background:rgba(255,255,255,.85);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--stroke);
+    }
+
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:10px 0;
+    }
+
+    .brand{display:flex; align-items:center; gap:12px; font-weight:900}
+    .logo{
+      width:38px;height:38px;border-radius:12px;
+      display:grid;place-items:center;
+      background:linear-gradient(135deg,var(--brand),var(--brand-2));
+      color:white;font-weight:900;
+      transition:.25s ease;
+      box-shadow:0 4px 15px rgba(34,197,94,.55);
+    }
+
+    .logo:hover{
+      transform:rotate(6deg) scale(1.12);
+      box-shadow:0 8px 25px rgba(34,197,94,.75);
+    }
+
+    nav ul{display:flex; gap:10px; margin:0; padding:0; list-style:none}
+    nav a{
+      padding:10px 14px; border-radius:12px;
+      font-weight:800;
+      border:1px solid transparent;
+      transition:.25s ease;
+    }
+    nav a:hover{
+      background:rgba(34,197,94,.15);
+      border-color:var(--ring);
+      transform:translateY(-2px);
+    }
+
+    /* Card */
+    .shell{width:min(720px,96vw); margin-inline:auto; margin-top:18px}
+    .card{
+      background:white;
+      border-radius:var(--radius);
+      border:1px solid var(--stroke);
+      box-shadow:var(--shadow);
+      animation:floatCard 4.5s ease-in-out infinite;
+    }
+    @keyframes floatCard{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-6px)}
+    }
+
     .card-content{padding:26px}
 
-    h1{margin:.2rem 0 .6rem; font-size:clamp(1.6rem, 2.4vw + 1rem, 2.2rem); text-wrap:balance}
-    p.lead{margin:.2rem 0 1rem; color:var(--muted)}
+    h1{font-size:clamp(1.6rem,2.4vw+1rem,2.2rem); margin:0 0 .6rem}
 
-    form{display:grid; gap:16px; margin-top:4px}
+    p.lead{color:var(--muted)}
+
+    /* Campos */
+    form{display:grid; gap:16px}
     .grid{display:grid; grid-template-columns:1fr 1fr; gap:14px}
     .field{display:grid; gap:8px}
-    label{font-weight:700}
+    label{font-weight:800}
 
-    .control{display:flex; align-items:center; gap:8px; border:1px solid var(--stroke); border-radius:14px; padding:10px 12px; background:#fff}
-    .control:focus-within{outline:2px solid var(--ring); outline-offset:2px}
-    input, select{
-      border:none; outline:none; flex:1; font-size:1rem; background:transparent
+    .control{
+      display:flex; align-items:center; gap:8px;
+      background:white; border-radius:14px;
+      padding:10px 12px;
+      border:1px solid var(--stroke);
+      transition:.25s ease;
     }
 
-    .muted{color:var(--muted)}
-
-    .actions{display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap; margin-top:2px}
-    .btn{display:inline-flex; align-items:center; gap:8px; padding:11px 16px; border-radius:14px; font-weight:800; cursor:pointer;
-      border:1px solid var(--stroke); background:white; transition:transform .06s ease, box-shadow .15s ease, background .2s ease}
-    .btn:hover{box-shadow:0 8px 20px rgba(34,197,94,.18)}
-    .btn:active{transform:translateY(1px)}
-    .btn.primary{background:linear-gradient(135deg, var(--brand), var(--brand-2)); color:white; border-color:transparent}
-
-    .links{display:flex; gap:12px; flex-wrap:wrap; margin-top:10px}
-    .links a{display:inline-block; padding:8px 10px; border-radius:12px}
-    .links a:hover{background:rgba(255,255,255,.7)}
-
-    .toggle-pass{border:none; background:transparent; cursor:pointer; font-weight:700}
-
-    .meter{height:8px; background:#f1f5f9; border-radius:999px; overflow:hidden}
-    .meter > i{display:block; height:100%; width:0%; background:linear-gradient(90deg,#ef4444,#f59e0b,#22c55e); transition:width .25s ease}
-
-    footer{margin-top:14px; text-align:center}
-    .small{font-size:.92rem; color:#e5e7eb}
-
-    @media (max-width:640px){
-      .grid{grid-template-columns:1fr}
-      .actions{gap:8px}
-      .btn{width:100%; justify-content:center}
+    .control:focus-within{
+      border-color:var(--brand);
+      box-shadow:0 0 14px rgba(34,197,94,.5);
+      transform:scale(1.03);
     }
+
+    input,select{
+      border:none; outline:none; background:none;
+      flex:1; font-size:1rem;
+    }
+
+    /* Indicador contraseña */
+    .meter{
+      height:8px; background:#eef1f3;
+      border-radius:999px; overflow:hidden;
+    }
+    .meter > i{
+      display:block; height:100%; width:0%;
+      background:linear-gradient(90deg,#ef4444,#f59e0b,#22c55e);
+      transition:width .25s ease;
+    }
+
+    /* Botones */
+    .actions{
+      display:flex; justify-content:space-between;
+      align-items:center; flex-wrap:wrap;
+    }
+
+    .btn{
+      padding:11px 16px; border-radius:14px;
+      font-weight:800; cursor:pointer;
+      background:white; border:1px solid var(--stroke);
+      transition:.25s ease;
+    }
+    .btn:hover{
+      transform:translateY(-3px);
+      box-shadow:0 10px 22px rgba(34,197,94,.25);
+    }
+
+    .btn.primary{
+      background:linear-gradient(135deg,var(--brand),var(--brand-2));
+      color:white; border:none;
+      box-shadow:0 6px 18px rgba(34,197,94,.35);
+    }
+    .btn.primary:hover{
+      box-shadow:0 10px 26px rgba(34,197,94,.55),
+                 0 0 18px rgba(34,197,94,.5);
+      transform:translateY(-3px) scale(1.02);
+    }
+
+    /* Shake */
+    @keyframes shake{
+      0%{transform:translateX(0)}
+      25%{transform:translateX(-6px)}
+      50%{transform:translateX(6px)}
+      75%{transform:translateX(-3px)}
+      100%{transform:translateX(0)}
+    }
+
+    footer{text-align:center; margin-top:16px}
+    .small{color:#e5e7eb}
   </style>
 </head>
 <body>
+
   <header>
     <div class="container topbar">
       <div class="brand">
-        <div class="logo" aria-hidden="true">MF</div>
-        <span>MamaFlor</span>
+        <div class="logo">MF</div>
+        MamaFlor
       </div>
-      <nav aria-label="Navegación principal">
+      <nav>
         <ul>
           <li><a href="index.html">Inicio</a></li>
           <li><a href="menu.html">Menú</a></li>
@@ -108,39 +219,45 @@
   </header>
 
   <main class="container shell">
-    <section class="card" aria-labelledby="title">
+    <section class="card">
       <div class="card-content">
-        <h1 id="title">Registrar usuario</h1>
-        <p class="lead">Crea tu cuenta para realizar pedidos y ver tu historial. Los campos marcados con * son obligatorios.</p>
 
-        <form id="regForm" action="#" method="post" autocomplete="on" novalidate>
+        <h1>Registrar usuario</h1>
+        <p class="lead">Crea tu cuenta y comienza a realizar pedidos fácilmente.</p>
+
+        <form id="regForm">
+
           <div class="grid">
+            <!-- Nombre -->
             <div class="field">
-              <label for="nombre">Nombre completo *</label>
+              <label>Nombre completo *</label>
               <div class="control">
-                <input id="nombre" name="nombre" type="text" required placeholder="Nombres y apellidos" autocomplete="name" />
+                <input id="nombre" required placeholder="Nombres y apellidos">
               </div>
             </div>
 
+            <!-- Usuario -->
             <div class="field">
-              <label for="usuario">Usuario *</label>
+              <label>Usuario *</label>
               <div class="control">
-                <input id="usuario" name="usuario" type="text" required placeholder="Ej. mfigueroa" autocomplete="username" />
+                <input id="usuario" required placeholder="ej. mfigueroa">
               </div>
             </div>
 
+            <!-- Correo -->
             <div class="field">
-              <label for="correo">Correo electrónico *</label>
+              <label>Correo *</label>
               <div class="control">
-                <input id="correo" name="correo" type="email" required placeholder="tucorreo@dominio.com" autocomplete="email" />
+                <input id="correo" type="email" required placeholder="correo@dominio.com">
               </div>
             </div>
 
+            <!-- Género -->
             <div class="field">
-              <label for="genero">Género</label>
+              <label>Género</label>
               <div class="control">
-                <select id="genero" name="genero">
-                  <option value="">Seleccionar…</option>
+                <select id="genero">
+                  <option value="">Seleccionar...</option>
                   <option>Femenino</option>
                   <option>Masculino</option>
                   <option>Prefiero no decirlo</option>
@@ -148,33 +265,36 @@
               </div>
             </div>
 
+            <!-- Contraseña -->
             <div class="field">
-              <label for="pass1">Contraseña *</label>
+              <label>Contraseña *</label>
               <div class="control">
-                <input id="pass1" name="pass1" type="password" required placeholder="••••••••" autocomplete="new-password" oninput="meter()" />
-                <button class="toggle-pass" type="button" aria-label="Mostrar u ocultar contraseña" onclick="toggle('pass1')">👁️</button>
+                <input id="pass1" type="password" required placeholder="********" oninput="passwordMeter()">
+                <button type="button" onclick="togglePass('pass1')">👁️</button>
               </div>
-              <div class="meter" aria-hidden="true"><i id="meterbar"></i></div>
-              <p id="metertext" class="muted" style="margin:.2rem 0 0">Fortaleza: —</p>
+
+              <div class="meter"><i id="meterbar"></i></div>
+              <p id="metertext" class="muted">Fortaleza: —</p>
             </div>
 
+            <!-- Confirmar -->
             <div class="field">
-              <label for="pass2">Confirmar contraseña *</label>
+              <label>Confirmar contraseña *</label>
               <div class="control">
-                <input id="pass2" name="pass2" type="password" required placeholder="Repite la contraseña" autocomplete="new-password" />
-                <button class="toggle-pass" type="button" aria-label="Mostrar u ocultar contraseña" onclick="toggle('pass2')">👁️</button>
+                <input id="pass2" type="password" required placeholder="Repetir contraseña">
+                <button type="button" onclick="togglePass('pass2')">👁️</button>
               </div>
             </div>
           </div>
 
-          <label class="muted" style="display:flex; align-items:center; gap:8px; margin-top:4px">
-            <input type="checkbox" id="tyc" required /> Acepto los términos y condiciones *
+          <label style="margin-top:8px; display:flex; align-items:center; gap:8px">
+            <input type="checkbox" id="tyc" required> Acepto los términos *
           </label>
 
           <div class="actions">
-            <button type="submit" class="btn primary">Crear cuenta</button>
+            <button class="btn primary" type="submit">Crear cuenta</button>
             <div class="links">
-              <a href="login.html">← Ya tengo cuenta</a>
+              <a href="login.html">← Iniciar sesión</a>
               <a href="index.html">Ir al inicio</a>
             </div>
           </div>
@@ -188,52 +308,78 @@
   </main>
 
   <script>
-    function toggle(id){
+
+    /* -------------------- PARALLAX -------------------- */
+    document.addEventListener("mousemove", e =>{
+      document.body.style.setProperty("--x", e.clientX);
+      document.body.style.setProperty("--y", e.clientY);
+      document.body.classList.add("parallax");
+
+      clearTimeout(window.__px);
+      window.__px = setTimeout(()=>document.body.classList.remove("parallax"), 90);
+    });
+
+    /* ------------------ TOGGLE PASSWORD ------------------ */
+    function togglePass(id){
       const i = document.getElementById(id);
-      i.type = i.type === 'password' ? 'text' : 'password';
+      i.type = (i.type === "password") ? "text" : "password";
     }
 
-    // Indicador simple de fortaleza
-    function meter(){
-      const v = document.getElementById('pass1').value || '';
+    /* ---------- MEDIDOR DE CONTRASEÑA PRO (DINÁMICO) --------- */
+    function passwordMeter(){
+      const v = document.getElementById("pass1").value;
       let score = 0;
+
       if(v.length >= 8) score++;
       if(/[A-Z]/.test(v)) score++;
       if(/[a-z]/.test(v)) score++;
-      if(/\d/.test(v)) score++;
-      if(/[^\w\s]/.test(v)) score++;
-      const pct = (score/5)*100;
-      document.getElementById('meterbar').style.width = pct + '%';
-      const t = ['Muy débil','Débil','Aceptable','Fuerte','Muy fuerte'];
-      document.getElementById('metertext').textContent = 'Fortaleza: ' + (score? t[score-1] : '—');
+      if(/[0-9]/.test(v)) score++;
+      if(/[^A-Za-z0-9]/.test(v)) score++;
+
+      const pct = (score/5) * 100;
+      document.getElementById("meterbar").style.width = pct + "%";
+
+      const labels = ["Muy débil", "Débil", "Aceptable", "Fuerte", "Muy fuerte"];
+      document.getElementById("metertext").textContent = score ? "Fortaleza: " + labels[score-1] : "Fortaleza: —";
     }
 
-    // Validación del formulario
-    document.getElementById('regForm').addEventListener('submit', function(e){
+    /* ------------------ VALIDACIÓN AVANZADA ------------------ */
+    document.getElementById("regForm").addEventListener("submit", function(e){
       e.preventDefault();
-      const req = ['nombre','usuario','correo','pass1','pass2'];
+
+      const req = ["nombre","usuario","correo","pass1","pass2"];
       for(const id of req){
         const el = document.getElementById(id);
         if(!el.value.trim()){
-          alert('Por favor completa: ' + id);
+          shake(el.parentElement);
+          alert("Completa: " + id);
           el.focus();
           return;
         }
       }
-      if(!document.getElementById('tyc').checked){
-        alert('Debes aceptar los términos y condiciones.');
+
+      if(!tyc.checked){
+        shake(document.getElementById("tyc"));
+        alert("Debes aceptar los términos.");
         return;
       }
-      const p1 = document.getElementById('pass1').value;
-      const p2 = document.getElementById('pass2').value;
-      if(p1 !== p2){
-        alert('Las contraseñas no coinciden.');
-        document.getElementById('pass2').focus();
+
+      if(pass1.value !== pass2.value){
+        shake(document.getElementById("pass2").parentElement);
+        alert("Las contraseñas no coinciden.");
         return;
       }
-      alert('¡Cuenta creada!\\nUsuario: ' + document.getElementById('usuario').value + '\\nCorreo: ' + document.getElementById('correo').value);
-      // Aquí puedes enviar con fetch() a tu backend.
+
+      alert("¡Usuario registrado correctamente!");
     });
+
+    /* -------------------- EFECTO SHAKE -------------------- */
+    function shake(element){
+      element.style.animation = "shake .35s";
+      setTimeout(() => element.style.animation = "", 400);
+    }
+
   </script>
 </body>
 </html>
+
